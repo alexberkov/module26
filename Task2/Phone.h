@@ -15,7 +15,7 @@ public:
 
 void Phone::add() {
   auto* MyContact = new Contact;
-  MyContact->getContact();
+  MyContact->setContact();
   phonebook.push_back(*MyContact);
   delete MyContact;
 }
@@ -24,31 +24,32 @@ Number Phone::getNumber() {
   bool found = false;
   auto *line = new Number;
   cout << "Enter name or number: ";
-  cin >> line->number;
+  line->setNumber();
   if (!line->isCorrect()) {
     for (auto &i : phonebook) {
-      if (line->number == i.name) {
-        line->number = i.cell.number;
+      if (line->getNumber() == i.getContact().first) {
+        line->putNumber(i.getContact().second);
         found = true;
         break;
       }
     }
     if (!found) {
       cout << "Contact not found!" << endl;
-      line->number = "NULL";
+      Number n;
+      line->putNumber(n);
     }
   }
   return *line;
 }
 
 void Phone::call() {
-  string s = this->getNumber().number;
+  string s = this->getNumber().getNumber();
   if (s != "NULL") cout << "Calling " << s << "..." << endl;
   else return;
 }
 
 void Phone::sms() {
-  string s = this->getNumber().number;
+  string s = this->getNumber().getNumber();
   if (s != "NULL") {
     string text;
     cin.ignore();

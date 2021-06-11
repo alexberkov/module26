@@ -7,18 +7,22 @@ class Contact {
     string name = "NULL";
     Number cell;
 public:
-    void getContact();
-    friend class Phone;
+    void setContact();
+    pair<string,Number> getContact();
 };
 
-void Contact::getContact() {
+void Contact::setContact() {
   cout << "Enter name: ";
   cin >> name;
   while (true) {
     cout << "Enter number: ";
-    cin >> cell.number;
+    cell.setNumber();
     if (cell.isCorrect()) break;
     else cout << "Wrong input! Try again." << endl;
   }
   cout << "Contact added!" << endl;
+}
+
+pair<string,Number> Contact::getContact() {
+  return make_pair(name, cell);
 }
