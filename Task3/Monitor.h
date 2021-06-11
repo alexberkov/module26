@@ -4,17 +4,22 @@
 using namespace std;
 
 class Monitor {
-public:
     Window W;
+public:
     void display() const;
     Monitor();
+    void move();
+    void resize();
     virtual ~Monitor() = default;
 };
 
 void Monitor::display() const {
+  Point center = W.getWindow().first;
+  int width = W.getWindow().second.first, height = W.getWindow().second.second;
+  int x = center.getPoint().first, y = center.getPoint().second;
   for (int i = 0; i < 50; i++) {
     for (int j = 0; j < 80; j++) {
-      if ((j >= W.corner.x) && (j < W.corner.x + W.width) && (i >= W.corner.y) && (i < W.corner.y + W.height)) {
+      if ((j >= x) && (j < x + width) && (i >= y) && (i < y + height)) {
         cout << "1";
       } else cout << "0";
     }
@@ -24,4 +29,13 @@ void Monitor::display() const {
 
 Monitor::Monitor() {
   W = Window();
+  W.createWindow();
+}
+
+void Monitor::move() {
+  W.move();
+}
+
+void Monitor::resize() {
+  W.resize();
 }

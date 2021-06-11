@@ -11,10 +11,9 @@ public:
     Point& operator +=(const Point& p);
     Point& operator -=(const Point& p);
     bool isCorrect() const;
-    void getPoint();
+    pair<int, int> getPoint() const;
+    void setPoint();
     void showPoint() const;
-    friend class Window;
-    friend class Monitor;
     virtual ~Point() = default;
 };
 
@@ -41,10 +40,14 @@ bool Point::isCorrect() const {
   return (x >= 0 && y >= 0 && x < 80 && y < 50);
 }
 
-void Point::getPoint() {
+void Point::setPoint() {
   cin >> x >> y;
 }
 
 void Point::showPoint() const {
   cout << "(" << x << ", " << y << ")" << endl;
+}
+
+pair<int, int> Point::getPoint() const {
+  return make_pair(x, y);
 }

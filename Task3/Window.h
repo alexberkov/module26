@@ -12,7 +12,7 @@ public:
     void createWindow ();
     void move();
     void resize();
-    friend class Monitor;
+    pair<Point, pair<int, int>> getWindow() const;
     virtual ~Window() = default;
 };
 
@@ -32,7 +32,7 @@ bool Window::isFit() {
 void Window::createWindow() {
   while (true) {
     cout << "Enter top-left corner coordinates: ";
-    corner.getPoint();
+    corner.setPoint();
     cout << "Enter width and height: ";
     cin >> width >> height;
     if (!this->isFit()) {
@@ -46,7 +46,7 @@ void Window::move() {
   Point v(0, 0);
   while (true) {
     cout << "Enter vector coordinates: ";
-    v.getPoint();
+    v.setPoint();
     corner += v;
     if (!this->isFit()) {
       cout << "Wrong input! Try again." << endl;
@@ -69,4 +69,8 @@ void Window::resize() {
     }
   }
   cout << "New size: " << width << " x " << height << endl;
+}
+
+pair<Point, pair<int, int>> Window::getWindow() const {
+  return make_pair(corner, make_pair(width, height));
 }
